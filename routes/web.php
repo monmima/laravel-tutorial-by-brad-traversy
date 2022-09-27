@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 // main page, all listings
 Route::get('/', function () {
     return view('listings', [
-        "heading" => "Latest listings",
         "listings" => Listing::all()
     ]);
 });
