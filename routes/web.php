@@ -24,24 +24,24 @@ Route::get('/', function () {
 });
 
 // single listing
-Route::get("/listings/{id}", function ($id) {
-    return view("listing", [
-        "listing" => Listing::find($id)
-    ]);
-});
+// Route::get("/listings/{id}", function ($id) {
+//     return view("listing", [
+//         "listing" => Listing::find($id)
+//     ]);
+// });
 
 // single listing
-Route::get("/listings/{id}", function ($id) {
-    $listing = Listing::find($id);
+// Route::get("/listings/{id}", function ($id) {
+//     $listing = Listing::find($id);
 
-    if ($listing) {
-        return view("listing", [
-            "listing" => $listing
-        ]);
-    } else {
-        abort("404");
-    }
-});
+//     if ($listing) {
+//         return view("listing", [
+//             "listing" => $listing
+//         ]);
+//     } else {
+//         abort("404");
+//     }
+// });
 
 // single listing
 Route::get("/listings/{listing}", function (Listing $listing) {
