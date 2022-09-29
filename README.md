@@ -1,3 +1,5 @@
-# laravel-tutorial-by-brad-traversy
+# Laravel Tutorial - Laragigs
 
 Based on a tutorial by Brad Traversy
+
+18.47

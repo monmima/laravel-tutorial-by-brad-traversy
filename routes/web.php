@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,36 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// main page, all listings
-Route::get('/', function () {
-    return view('listings', [
-        "listings" => Listing::all()
-    ]);
-});
-
-// single listing
-// Route::get("/listings/{id}", function ($id) {
-//     return view("listing", [
-//         "listing" => Listing::find($id)
+// // main page, all listings
+// Route::get('/', function () {
+//     return view('listings', [
+//         "listings" => Listing::all()
 //     ]);
 // });
 
-// single listing
-// Route::get("/listings/{id}", function ($id) {
-//     $listing = Listing::find($id);
-
-//     if ($listing) {
-//         return view("listing", [
-//             "listing" => $listing
-//         ]);
-//     } else {
-//         abort("404");
-//     }
+// // single listing
+// Route::get("/listings/{listing}", function (Listing $listing) {
+//      return view("listing", [ 
+//         "listing" => $listing
+//     ]);
 // });
 
+// main page, all listings
+Route::get('/', [ListingController::class, "index"]);
+
 // single listing
-Route::get("/listings/{listing}", function (Listing $listing) {
-     return view("listing", [
-        "listing" => $listing
-    ]);
-});
+Route::get('/listings/{listing}',  [ListingController::class, "show"]);
