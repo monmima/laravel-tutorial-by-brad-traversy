@@ -12,10 +12,10 @@
     @endif
 
     @foreach ($listings as $listing)
-        {{-- <x-listing-card :listing="$listing" /> --}}
-        <x-test>
+        <x-listing-card :listing="$listing" />
+        {{-- <x-test>
             Your arbitrary content.
-        </x-test>
+        </x-test> --}}
     @endforeach
 </div>
 
