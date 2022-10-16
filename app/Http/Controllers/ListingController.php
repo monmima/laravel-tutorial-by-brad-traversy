@@ -51,6 +51,10 @@ class ListingController extends Controller
             "description" => "required"
         ]);
 
+        if ($request->hasFile("logo")) {
+            $formFields["logo"] = $request->file("logo")->store("logos", "public");
+        }
+
         Listing::create($formFields);
 
         return redirect("/")->with("message", "Listing created successfully!");
@@ -75,9 +79,9 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Listing $listing)
     {
-        //
+        return view("listings.edit", ["listing" => $listing]);
     }
 
     /**
@@ -87,9 +91,51 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    // public function update(Request $request, Listing $listing)
+    // {
+    //     $formFields = $request->validate([
+    //         "title" => "required",
+    //         "company" => ["required"],
+    //         "location" => "required",
+    //         "website" => "requi red", 
+    //         "email" => ["required", "email"],
+    //         "tags" => "required",
+    //         "description" => "required"
+    //     ]);
+
+    //     if ($request->hasFile("logo")) {
+    //         $formFields["logo"] = $request->file("logo")->store("logos", "public");
+    //     } 
+   
+    //     $listing->update($formFields);
+
+    //     return back()->with("message", "Listing updated successfully!");
+    // }
+
+    // Update Listing Data
+    public function update(Request $request, Listing $listing) {
+        // Make sure logged in user is owner
+        if($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+        
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required'],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required'
+        ]);
+
+        if($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $listing->update($formFields);
+
+        return back()->with('message', 'Listing updated successfully!');
     }
 
     /**
@@ -98,8 +144,11 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Listing $listing)
     {
-        //
+        $listing->delete();
+        return redirect("/")->with("message", "Listing delete successfully!");
     }
+
+
 }
