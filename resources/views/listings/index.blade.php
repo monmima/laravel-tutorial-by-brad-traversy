@@ -11,4 +11,9 @@
             <x-listing-card :listing="$listing" />
         @endforeach
     </div>
+
+    <div class="mt-6 p-4">
+        {{-- pagination links --}}
+        {{ $listings->links() }}
+    </div>
 </x-layout>
