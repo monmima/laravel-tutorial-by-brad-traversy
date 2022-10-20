@@ -6,7 +6,7 @@
                 Login
             </h2>
             <p class="mb-4">Log into your account to post gigs</p>
-        </header>
+        </header> 
 
         <form method="POST" action="/users/authenticate">
             @csrf
