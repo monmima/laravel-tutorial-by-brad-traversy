@@ -55,6 +55,9 @@ class ListingController extends Controller
             $formFields["logo"] = $request->file("logo")->store("logos", "public");
         }
 
+        // set user_id to the user that is currently logged in
+        $formFields["user_id"] = auth()->id();
+
         Listing::create($formFields);
 
         return redirect("/")->with("message", "Listing created successfully!");
@@ -133,9 +136,6 @@ class ListingController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
-        // set user_id to the user that is currently logged in
-        $formFields["user_id"] = auth()->id();
-
         $listing->update($formFields);
 
         return back()->with('message', 'Listing updated successfully!');
@@ -153,5 +153,8 @@ class ListingController extends Controller
         return redirect("/")->with("message", "Listing delete successfully!");
     }
 
-
+    // Manage Listings
+    public function manage() {
+        return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
+    }
 }
